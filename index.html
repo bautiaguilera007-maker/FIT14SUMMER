@@ -1,123 +1,345 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#101827">
-  <meta name="description" content="FIT14 SUMMER: entrenador personal de verano de 14 días.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071525">
+  <meta name="description" content="FIT14 SUMMER: entrenamiento, fútbol, alimentación y progreso.">
+  <title>FIT14 SUMMER</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <title>FIT14 SUMMER</title>
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="brand"><div class="brand-icon">F14</div><div><strong>FIT14 SUMMER</strong><small>Tu entrenador de verano</small></div></div>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">F14</div>
+      <div>
+        <h1>FIT14 <span>SUMMER</span></h1>
+        <p>Tu progreso, paso a paso</p>
+      </div>
+    </div>
     <button id="installBtn" class="install-btn" hidden>Instalar</button>
   </header>
 
-  <main>
-    <section class="hero card">
-      <div class="hero-top"><span class="eyebrow">TU PROGRAMA INICIAL</span><span id="dayPill" class="pill">Día 1 de 14</span></div>
-      <h1>Entrená mejor.<br><span>Sin sobrecargarte.</span></h1>
-      <p>Sesiones cortas para mejorar tu velocidad, fuerza, resistencia y juego.</p>
-      <div class="progress-track"><div id="overallProgress" class="progress-fill"></div></div>
-      <small id="progressLabel">0 de 14 días completados</small>
-    </section>
+  <main class="app-main">
 
-    <nav class="tabs" aria-label="Secciones">
+    <nav class="tabs" aria-label="Secciones principales">
       <button class="tab active" data-tab="today">Hoy</button>
       <button class="tab" data-tab="calendar">Calendario</button>
-      <button class="tab" data-tab="football">Fútbol libre</button>
+      <button class="tab" data-tab="football">Fútbol</button>
+      <button class="tab" data-tab="food">Alimentación</button>
+      <button class="tab" data-tab="feeling">Cómo me siento</button>
       <button class="tab" data-tab="stats">Progreso</button>
     </nav>
 
-    <section id="today" class="panel active">
-      <div class="section-heading"><div><span class="eyebrow">PLAN DEL DÍA</span><h2 id="todayTitle">Día 1 · Educación Física / recuperación</h2></div><span id="todayTag" class="tag">Suave</span></div>
-      <div class="card workout-card">
-        <div class="workout-icon" id="todayIcon">⚡</div>
-        <div class="workout-info"><h3 id="todayWorkout">Actividad escolar o descanso</h3><p id="todayDesc">No agregues otra sesión intensa.</p><small id="todayDuration">0–10 min opcionales</small></div>
+    <!-- HOY -->
+    <section id="today" class="page active">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">TU PLAN DE ENTRENAMIENTO</p>
+          <h2>¡Vamos paso a paso!</h2>
+        </div>
+        <span id="dayPill" class="pill">DÍA 1 / 14</span>
       </div>
-      <div class="card check-card">
+
+      <div class="progress-card">
+        <div class="progress-top">
+          <span>Progreso del programa</span>
+          <strong id="progressLabel">0%</strong>
+        </div>
+        <div class="progress-track">
+          <div id="overallProgress" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <article class="workout-card">
+        <div class="workout-icon" id="todayIcon">🏃</div>
+        <div class="workout-info">
+          <span id="todayTag" class="workout-tag">ENTRENAMIENTO</span>
+          <h2 id="todayTitle">Preparando tu día...</h2>
+          <p id="todayDesc">Tu actividad aparecerá aquí.</p>
+          <span id="todayDuration" class="duration">—</span>
+        </div>
+      </article>
+
+      <div id="todayWorkout" class="workout-details"></div>
+
+      <div id="sessionContent" class="session-content"></div>
+
+      <div class="action-buttons">
+        <button id="startSession" class="primary-btn">Comenzar entrenamiento</button>
+        <button id="completeDay" class="secondary-btn">Marcar día como completado</button>
+      </div>
+
+      <article class="advice-card">
         <h3>¿Cómo te sentís hoy?</h3>
-        <p class="muted">La recomendación se ajusta a tu respuesta.</p>
-        <div class="feelings">
-          <button class="feeling" data-feel="good">😊<span>Bien</span></button>
-          <button class="feeling" data-feel="tired">😐<span>Cansado</span></button>
-          <button class="feeling" data-feel="sore">😣<span>Con molestias</span></button>
+        <p>Tu estado ayuda a adaptar la actividad del día.</p>
+        <div class="feeling-options">
+          <button class="feeling" data-feel="good">😊 Bien</button>
+          <button class="feeling" data-feel="tired">😴 Cansado</button>
+          <button class="feeling" data-feel="sore">😣 Molestias</button>
         </div>
-        <p id="dailyAdvice" class="advice">Elegí cómo te sentís para ver tu recomendación.</p>
-      </div>
-      <div id="sessionBox" class="card session-card">
-        <div class="section-heading"><h3>Sesión guiada</h3><span class="muted">Calentamiento + actividad + vuelta a la calma</span></div>
-        <div id="sessionContent"></div>
-        <button id="startSession" class="primary full">Comenzar sesión</button>
-        <button id="completeDay" class="secondary full">Marcar día como realizado</button>
-      </div>
+        <p id="dailyAdvice" class="daily-advice">Elegí cómo te sentís para recibir una recomendación.</p>
+      </article>
     </section>
 
-    <section id="calendar" class="panel">
-      <div class="section-heading"><div><span class="eyebrow">TU PLAN</span><h2>14 días</h2></div><span class="muted">Progresivo y flexible</span></div>
+    <!-- CALENDARIO -->
+    <section id="calendar" class="page">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ORGANIZACIÓN</p>
+          <h2>Calendario</h2>
+        </div>
+        <span class="pill purple">14 DÍAS</span>
+      </div>
+      <p class="section-description">Consultá las actividades previstas y tu avance.</p>
       <div id="calendarGrid" class="calendar-grid"></div>
-      <p class="note">La Educación Física cuenta como actividad. Si jugás fútbol con intensidad, registralo en «Fútbol libre» y reemplazá la sesión intensa del día.</p>
     </section>
 
-    <section id="football" class="panel">
-      <span class="eyebrow">CUANDO TENGAS GANAS Y TIEMPO</span><h2>Fútbol libre ⚽</h2>
-      <p class="muted">No está fijado a un día. Usalo cuando quieras practicar o jugar.</p>
-      <div class="card">
-        <h3>¿Qué vas a hacer?</h3>
-        <div class="choice-list">
-          <label><input type="radio" name="footballType" value="technique" checked> Técnica individual (15–20 min)</label>
-          <label><input type="radio" name="footballType" value="game"> Partido o fútbol intenso</label>
-          <label><input type="radio" name="footballType" value="light"> Juego suave / pases (10–15 min)</label>
+    <!-- FÚTBOL -->
+    <section id="football" class="page">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ACTIVIDAD LIBRE</p>
+          <h2>Voy a jugar fútbol</h2>
         </div>
-        <label class="field-label" for="footballMinutes">Duración aproximada (minutos)</label>
-        <input id="footballMinutes" type="number" min="5" max="180" value="20">
-        <label class="field-label" for="footballEffort">Esfuerzo percibido</label>
-        <select id="footballEffort"><option value="easy">Suave</option><option value="moderate" selected>Moderado</option><option value="hard">Intenso</option></select>
-        <button id="logFootball" class="primary full">Registrar fútbol de hoy</button>
+        <span class="pill red">FÚTBOL</span>
       </div>
-      <div class="card">
-        <h3>Mini sesión técnica opcional</h3>
-        <ul class="exercise-list">
-          <li>Conducción con ambos pies — 3 min</li>
-          <li>Toques cortos y cambios de dirección — 3 min</li>
-          <li>Pases contra una pared, si tenés espacio seguro — 4 min</li>
-          <li>Control orientado y giro — 4 min</li>
-          <li>Conducción libre suave — 2 min</li>
-        </ul>
-        <p class="note">Evitá entrenar en calles o superficies resbaladizas. Si hay dolor, frená.</p>
+
+      <article class="info-card">
+        <h3>Registrá tu partido o práctica</h3>
+        <p>El plan tendrá en cuenta esta actividad para evitar acumular demasiado esfuerzo.</p>
+
+        <form id="footballForm">
+          <label class="form-label">¿Qué tipo de actividad hiciste?</label>
+          <div class="choice-list">
+            <label><input type="radio" name="footballType" value="Partido" checked> Partido</label>
+            <label><input type="radio" name="footballType" value="Entrenamiento"> Entrenamiento</label>
+            <label><input type="radio" name="footballType" value="Práctica individual"> Práctica individual</label>
+          </div>
+
+          <label class="form-label" for="footballMinutes">Duración (minutos)</label>
+          <input id="footballMinutes" type="number" min="1" max="300" placeholder="Ej. 60" required>
+
+          <label class="form-label" for="footballEffort">Esfuerzo percibido</label>
+          <select id="footballEffort" required>
+            <option value="1">1 - Muy suave</option>
+            <option value="2">2 - Suave</option>
+            <option value="3" selected>3 - Moderado</option>
+            <option value="4">4 - Intenso</option>
+            <option value="5">5 - Muy intenso</option>
+          </select>
+
+          <button id="logFootball" class="primary-btn" type="submit">Guardar actividad</button>
+        </form>
+      </article>
+
+      <div id="footballAdvice" class="advice-card">
+        <h3>Recomendación</h3>
+        <p>Registrá tu actividad para adaptar el entrenamiento.</p>
       </div>
     </section>
 
-    <section id="stats" class="panel">
-      <span class="eyebrow">TU EVOLUCIÓN</span><h2>Progreso</h2>
-      <div class="stats-grid">
-        <div class="stat card"><strong id="completedStat">0</strong><span>Días realizados</span></div>
-        <div class="stat card"><strong id="footballStat">0</strong><span>Sesiones de fútbol</span></div>
-        <div class="stat card"><strong id="minutesStat">0</strong><span>Minutos registrados</span></div>
-        <div class="stat card"><strong id="streakStat">0</strong><span>Días activos seguidos</span></div>
+    <!-- ALIMENTACIÓN -->
+    <section id="food" class="page">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ENERGÍA Y RECUPERACIÓN</p>
+          <h2>Alimentación</h2>
+        </div>
+        <span class="pill green">HÁBITOS</span>
       </div>
-      <div class="card"><h3>Registro reciente</h3><div id="historyList" class="history-list">Todavía no hay sesiones registradas.</div></div>
-      <button id="resetData" class="danger full">Reiniciar progreso de esta prueba</button>
-      <p class="note">Los datos se guardan en este dispositivo y navegador. Si borrás los datos del sitio o cambiás de dispositivo, el historial puede perderse.</p>
+
+      <article class="info-card">
+        <h3>Una alimentación variada</h3>
+        <p>La idea es acompañar tu crecimiento y actividad física. No necesitás hacer dietas restrictivas ni saltearte comidas.</p>
+      </article>
+
+      <article class="food-plan">
+        <h3>Ideas para tus comidas</h3>
+        <div id="foodSuggestions">
+          <p>Las recomendaciones del día aparecerán aquí.</p>
+        </div>
+      </article>
+
+      <article class="info-card">
+        <h3>Registrar lo que comí</h3>
+        <p>Contame brevemente qué comiste y recibirás una devolución sencilla y constructiva.</p>
+
+        <form id="mealForm">
+          <label class="form-label" for="mealType">Comida</label>
+          <select id="mealType" required>
+            <option value="Desayuno">Desayuno</option>
+            <option value="Almuerzo">Almuerzo</option>
+            <option value="Merienda">Merienda</option>
+            <option value="Cena">Cena</option>
+            <option value="Colación">Colación</option>
+          </select>
+
+          <label class="form-label" for="mealDescription">¿Qué comiste?</label>
+          <textarea id="mealDescription" rows="3" placeholder="Ej. Leche, tostadas y una fruta..." required></textarea>
+
+          <button class="primary-btn" type="submit">Guardar comida</button>
+        </form>
+      </article>
+
+      <article class="advice-card">
+        <h3>Devolución</h3>
+        <p id="mealFeedback">Cuando registres una comida, aparecerá aquí una breve recomendación.</p>
+      </article>
+
+      <article class="info-card">
+        <h3>Historial de comidas</h3>
+        <div id="mealHistory" class="history-list">
+          <p>Todavía no hay comidas registradas.</p>
+        </div>
+      </article>
     </section>
+
+    <!-- CÓMO ME SIENTO -->
+    <section id="feeling" class="page">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ESCUCHÁ A TU CUERPO</p>
+          <h2>¿Cómo me siento?</h2>
+        </div>
+        <span class="pill green">BIENESTAR</span>
+      </div>
+
+      <article class="info-card">
+        <h3>Registrar una molestia</h3>
+        <p>Contá si sentís alguna molestia para adaptar el entrenamiento. Este registro no realiza diagnósticos.</p>
+
+        <form id="painForm">
+          <label class="form-label" for="painZone">¿En qué zona?</label>
+          <select id="painZone" required>
+            <option value="">Seleccionar zona</option>
+            <option value="Cabeza">Cabeza</option>
+            <option value="Cuello">Cuello</option>
+            <option value="Hombros">Hombros</option>
+            <option value="Espalda">Espalda</option>
+            <option value="Brazos">Brazos</option>
+            <option value="Cadera">Cadera</option>
+            <option value="Muslos">Muslos</option>
+            <option value="Rodillas">Rodillas</option>
+            <option value="Pantorrillas">Pantorrillas</option>
+            <option value="Tobillos">Tobillos</option>
+            <option value="Pies">Pies</option>
+            <option value="Otra">Otra</option>
+          </select>
+
+          <label class="form-label" for="painType">¿Qué sensación tenés?</label>
+          <select id="painType" required>
+            <option value="">Seleccionar</option>
+            <option value="Dolor">Dolor</option>
+            <option value="Tensión">Tensión</option>
+            <option value="Rigidez">Rigidez</option>
+            <option value="Cansancio">Cansancio</option>
+            <option value="Otra sensación">Otra sensación</option>
+          </select>
+
+          <label class="form-label" for="painIntensity">Intensidad subjetiva: <strong id="painIntensityValue">1</strong> / 5</label>
+          <input id="painIntensity" type="range" min="1" max="5" value="1">
+
+          <label class="form-label" for="painWhen">¿Cuándo aparece?</label>
+          <select id="painWhen" required>
+            <option value="">Seleccionar</option>
+            <option value="En reposo">En reposo</option>
+            <option value="Al caminar">Al caminar</option>
+            <option value="Al correr">Al correr</option>
+            <option value="Al entrenar">Al entrenar</option>
+            <option value="Después de entrenar">Después de entrenar</option>
+            <option value="Todo el tiempo">Todo el tiempo</option>
+          </select>
+
+          <label class="form-label" for="painNotes">Descripción adicional (opcional)</label>
+          <textarea id="painNotes" rows="3" placeholder="Contá desde cuándo ocurre o qué movimiento lo provoca..."></textarea>
+
+          <button class="primary-btn" type="submit">Guardar registro</button>
+        </form>
+      </article>
+
+      <article class="advice-card">
+        <h3>Recomendación</h3>
+        <p id="painAdvice">Si aparece dolor, no fuerces la zona. Si es intenso, persiste o empeora, contáselo a un adulto y consulten a un profesional.</p>
+      </article>
+
+      <article class="info-card">
+        <h3>Historial de molestias</h3>
+        <div id="painHistory" class="history-list">
+          <p>Todavía no hay registros.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- PROGRESO -->
+    <section id="stats" class="page">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">TU EVOLUCIÓN</p>
+          <h2>Progreso</h2>
+        </div>
+        <span class="pill gold">ESTADÍSTICAS</span>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span>Días completados</span>
+          <strong id="completedStat">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Actividades de fútbol</span>
+          <strong id="footballStat">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Minutos activos</span>
+          <strong id="minutesStat">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Racha actual</span>
+          <strong id="streakStat">0</strong>
+        </article>
+      </div>
+
+      <article class="info-card">
+        <h3>Historial de actividad</h3>
+        <div id="historyList" class="history-list">
+          <p>Todavía no hay actividad registrada.</p>
+        </div>
+      </article>
+
+      <button id="resetData" class="danger-btn" type="button">Reiniciar progreso</button>
+      <p class="small-note">Esta acción borra los registros guardados en este dispositivo.</p>
+    </section>
+
   </main>
 
-  <footer><span>FIT14 SUMMER · Primera etapa</span><span>Escuchá tu cuerpo. La constancia vale más que entrenar al límite.</span></footer>
-
-  <div id="timerModal" class="modal" aria-hidden="true">
-    <div class="modal-card">
-      <button id="closeTimer" class="close" aria-label="Cerrar">×</button>
-      <span class="eyebrow">SESIÓN EN CURSO</span><h2 id="timerTitle">Entrenamiento</h2>
-      <div id="timerStep" class="timer-step">Preparación</div>
-      <div id="timerDisplay" class="timer-display">00:30</div>
-      <p id="timerHint" class="muted">Seguí las indicaciones.</p>
-      <div class="timer-actions"><button id="pauseTimer" class="secondary">Pausar</button><button id="nextTimer" class="primary">Siguiente</button></div>
-      <div id="timerProgress" class="progress-track"><div class="progress-fill"></div></div>
+  <!-- TEMPORIZADOR -->
+  <div id="timerModal" class="modal" hidden>
+    <div class="modal-content">
+      <button id="closeTimer" class="close-btn" aria-label="Cerrar">×</button>
+      <p class="eyebrow">ENTRENAMIENTO GUIADO</p>
+      <h2 id="timerTitle">Preparado</h2>
+      <p id="timerStep">Primer ejercicio</p>
+      <div id="timerDisplay" class="timer-display">00:00</div>
+      <p id="timerHint">Seguí las indicaciones.</p>
+      <div class="timer-track">
+        <div id="timerProgress" class="timer-fill"></div>
+      </div>
+      <div class="timer-buttons">
+        <button id="pauseTimer" class="secondary-btn">Pausar</button>
+        <button id="nextTimer" class="primary-btn">Siguiente</button>
+      </div>
     </div>
   </div>
+
+  <footer class="app-footer">
+    <p>FIT14 SUMMER · Constancia antes que intensidad.</p>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
