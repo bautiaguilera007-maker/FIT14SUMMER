@@ -8,10 +8,9 @@
   <meta name="description" content="FIT14 SUMMER: entrenamiento, fútbol, alimentación y progreso.">
   <title>FIT14 SUMMER</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icon-nuevo.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
   <header class="app-header">
     <div class="brand">
@@ -25,7 +24,6 @@
   </header>
 
   <main class="app-main">
-
     <nav class="tabs" aria-label="Secciones principales">
       <button class="tab active" data-tab="today">Hoy</button>
       <button class="tab" data-tab="calendar">Calendario</button>
@@ -44,7 +42,6 @@
         </div>
         <span id="dayPill" class="pill">DÍA 1 / 14</span>
       </div>
-
       <div class="progress-card">
         <div class="progress-top">
           <span>Progreso del programa</span>
@@ -54,7 +51,6 @@
           <div id="overallProgress" class="progress-fill"></div>
         </div>
       </div>
-
       <article class="workout-card">
         <div class="workout-icon" id="todayIcon">🏃</div>
         <div class="workout-info">
@@ -66,14 +62,12 @@
       </article>
 
       <div id="todayWorkout" class="workout-details"></div>
-
       <div id="sessionContent" class="session-content"></div>
 
       <div class="action-buttons">
         <button id="startSession" class="primary-btn">Comenzar entrenamiento</button>
         <button id="completeDay" class="secondary-btn">Marcar día como completado</button>
       </div>
-
       <article class="advice-card">
         <h3>¿Cómo te sentís hoy?</h3>
         <p>Tu estado ayuda a adaptar la actividad del día.</p>
@@ -112,7 +106,6 @@
       <article class="info-card">
         <h3>Registrá tu partido o práctica</h3>
         <p>El plan tendrá en cuenta esta actividad para evitar acumular demasiado esfuerzo.</p>
-
         <form id="footballForm">
           <label class="form-label">¿Qué tipo de actividad hiciste?</label>
           <div class="choice-list">
@@ -120,10 +113,8 @@
             <label><input type="radio" name="footballType" value="Entrenamiento"> Entrenamiento</label>
             <label><input type="radio" name="footballType" value="Práctica individual"> Práctica individual</label>
           </div>
-
           <label class="form-label" for="footballMinutes">Duración (minutos)</label>
           <input id="footballMinutes" type="number" min="1" max="300" placeholder="Ej. 60" required>
-
           <label class="form-label" for="footballEffort">Esfuerzo percibido</label>
           <select id="footballEffort" required>
             <option value="1">1 - Muy suave</option>
@@ -132,7 +123,6 @@
             <option value="4">4 - Intenso</option>
             <option value="5">5 - Muy intenso</option>
           </select>
-
           <button id="logFootball" class="primary-btn" type="submit">Guardar actividad</button>
         </form>
       </article>
@@ -157,7 +147,6 @@
         <h3>Una alimentación variada</h3>
         <p>La idea es acompañar tu crecimiento y actividad física. No necesitás hacer dietas restrictivas ni saltearte comidas.</p>
       </article>
-
       <article class="food-plan">
         <h3>Ideas para tus comidas</h3>
         <div id="foodSuggestions">
@@ -168,7 +157,6 @@
       <article class="info-card">
         <h3>Registrar lo que comí</h3>
         <p>Contame brevemente qué comiste y recibirás una devolución sencilla y constructiva.</p>
-
         <form id="mealForm">
           <label class="form-label" for="mealType">Comida</label>
           <select id="mealType" required>
@@ -178,7 +166,6 @@
             <option value="Cena">Cena</option>
             <option value="Colación">Colación</option>
           </select>
-
           <label class="form-label" for="mealDescription">¿Qué comiste?</label>
           <textarea id="mealDescription" rows="3" placeholder="Ej. Leche, tostadas y una fruta..." required></textarea>
 
@@ -190,7 +177,6 @@
         <h3>Devolución</h3>
         <p id="mealFeedback">Cuando registres una comida, aparecerá aquí una breve recomendación.</p>
       </article>
-
       <article class="info-card">
         <h3>Historial de comidas</h3>
         <div id="mealHistory" class="history-list">
@@ -208,11 +194,9 @@
         </div>
         <span class="pill green">BIENESTAR</span>
       </div>
-
       <article class="info-card">
         <h3>Registrar una molestia</h3>
         <p>Contá si sentís alguna molestia para adaptar el entrenamiento. Este registro no realiza diagnósticos.</p>
-
         <form id="painForm">
           <label class="form-label" for="painZone">¿En qué zona?</label>
           <select id="painZone" required>
@@ -230,7 +214,6 @@
             <option value="Pies">Pies</option>
             <option value="Otra">Otra</option>
           </select>
-
           <label class="form-label" for="painType">¿Qué sensación tenés?</label>
           <select id="painType" required>
             <option value="">Seleccionar</option>
@@ -240,10 +223,8 @@
             <option value="Cansancio">Cansancio</option>
             <option value="Otra sensación">Otra sensación</option>
           </select>
-
           <label class="form-label" for="painIntensity">Intensidad subjetiva: <strong id="painIntensityValue">1</strong> / 5</label>
           <input id="painIntensity" type="range" min="1" max="5" value="1">
-
           <label class="form-label" for="painWhen">¿Cuándo aparece?</label>
           <select id="painWhen" required>
             <option value="">Seleccionar</option>
@@ -254,14 +235,12 @@
             <option value="Después de entrenar">Después de entrenar</option>
             <option value="Todo el tiempo">Todo el tiempo</option>
           </select>
-
           <label class="form-label" for="painNotes">Descripción adicional (opcional)</label>
           <textarea id="painNotes" rows="3" placeholder="Contá desde cuándo ocurre o qué movimiento lo provoca..."></textarea>
 
           <button class="primary-btn" type="submit">Guardar registro</button>
         </form>
       </article>
-
       <article class="advice-card">
         <h3>Recomendación</h3>
         <p id="painAdvice">Si aparece dolor, no fuerces la zona. Si es intenso, persiste o empeora, contáselo a un adulto y consulten a un profesional.</p>
@@ -284,7 +263,6 @@
         </div>
         <span class="pill gold">ESTADÍSTICAS</span>
       </div>
-
       <div class="stats-grid">
         <article class="stat-card">
           <span>Días completados</span>
@@ -303,7 +281,6 @@
           <strong id="streakStat">0</strong>
         </article>
       </div>
-
       <article class="info-card">
         <h3>Historial de actividad</h3>
         <div id="historyList" class="history-list">
@@ -314,7 +291,6 @@
       <button id="resetData" class="danger-btn" type="button">Reiniciar progreso</button>
       <p class="small-note">Esta acción borra los registros guardados en este dispositivo.</p>
     </section>
-
   </main>
 
   <!-- TEMPORIZADOR -->
@@ -335,7 +311,6 @@
       </div>
     </div>
   </div>
-
   <footer class="app-footer">
     <p>FIT14 SUMMER · Constancia antes que intensidad.</p>
   </footer>
