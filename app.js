@@ -1,300 +1,866 @@
 
-const $ = s => document.querySelector(s);
+  
+const $ = (selector) => document.querySelector(selector);
 
 const plan = [
-  {name:"Educación Física / recuperación",tag:"Suave",icon:"🏫",duration:"Actividad escolar · sin carga extra",desc:"La clase de Educación Física cuenta como actividad. No agregues otra sesión intensa.",type:"rest",steps:[]},
-  {name:"Técnica de fútbol opcional",tag:"Opcional",icon:"⚽",duration:"15–20 min",desc:"Si tenés tiempo y estás recuperado, practicá técnica suave. Si no, descansá.",type:"tech",steps:[["Calentamiento","Marcha activa + movilidad de tobillos y cadera",60],["Conducción","Conducí suave con ambos pies",180],["Cambios de dirección","Giros amplios y controlados",120],["Pases","Pases cortos contra una pared, si es seguro",180],["Vuelta a la calma","Caminata y respiración tranquila",120]]},
-  {name:"Recuperación",tag:"Descanso",icon:"🌿",duration:"Descanso · 5–8 min opcionales",desc:"Día con contraturno. Priorizá descanso; movilidad solo si te hace bien.",type:"rest",steps:[]},
-  {name:"Movilidad suave",tag:"Suave",icon:"🧘",duration:"5–8 min opcionales",desc:"Sin entrenamiento exigente. Movete suavemente si estás rígido.",type:"mobility",steps:[["Movilidad de hombros","Círculos suaves de brazos",30],["Movilidad de cadera","Círculos controlados de cadera",30],["Tobillos","Círculos de tobillo, ambos lados",30],["Respiración","Respirá lento y relajá",60]]},
-  {name:"Velocidad y coordinación",tag:"Principal",icon:"⚡",duration:"20–25 min",desc:"Solo si estás descansado, sin dolor y tenés un espacio seguro. Aceleraciones cortas, sin competir contra el cansancio.",type:"speed",steps:[["Calentamiento","Marcha activa y movilidad",90],["Activación","Rodillas arriba suave y talones a glúteos",60],["Aceleraciones","4 × 10 m progresivas; descansá 60–90 s entre cada una",240],["Coordinación","Desplazamientos laterales suaves",120],["Vuelta a la calma","Caminá y respirás tranquilo",120]]},
-  {name:"Fuerza general",tag:"Principal",icon:"💪",duration:"20–25 min",desc:"Fuerza básica con técnica cómoda, sin llegar al fallo. Si tenés agujetas o jugaste intenso, pasá a recuperación.",type:"strength",steps:[["Calentamiento","Marcha activa + movilidad",120],["Sentadillas","2 × 8–10 repeticiones, cómodas",120],["Flexiones","2 × 6–10; apoyá rodillas si hace falta",120],["Remo / dominadas asistidas","2 × 3–5 solo si podés hacerlo con control y asistencia segura",120],["Puente de glúteos","2 × 10 repeticiones",90],["Plancha","2 × 15–20 segundos",90],["Vuelta a la calma","Caminata suave y estiramientos breves",180]]},
-  {name:"Recuperación",tag:"Descanso",icon:"🌤️",duration:"Descanso",desc:"Descanso o paseo suave. No necesitás entrenar todos los días.",type:"rest",steps:[]},
-  {name:"Educación Física / recuperación",tag:"Suave",icon:"🏫",duration:"Actividad escolar · sin carga extra",desc:"Contá Educación Física como actividad. No sumes una sesión intensa.",type:"rest",steps:[]},
-  {name:"Técnica de fútbol opcional",tag:"Opcional",icon:"⚽",duration:"15–20 min",desc:"Práctica técnica ligera si estás recuperado. No hagas series intensas si jugaste recientemente.",type:"tech",steps:[["Calentamiento","Marcha activa + movilidad",60],["Conducción","Toques suaves con ambos pies",180],["Control orientado","Controlá y salí hacia un lado",180],["Pases","Pases cortos y precisos",180],["Vuelta a la calma","Caminata tranquila",120]]},
-  {name:"Recuperación",tag:"Descanso",icon:"🌿",duration:"Descanso",desc:"Día ocupado. Priorizá sueño, comida e hidratación.",type:"rest",steps:[]},
-  {name:"Movilidad suave",tag:"Suave",icon:"🧘",duration:"5–8 min opcionales",desc:"Movilidad cómoda, sin forzar rangos ni buscar dolor.",type:"mobility",steps:[["Hombros","Círculos suaves",30],["Cadera","Movimientos controlados",30],["Tobillos","Movilidad de tobillo",30],["Respiración","Respiración tranquila",60]]},
-  {name:"Velocidad y coordinación",tag:"Principal",icon:"⚡",duration:"20–25 min",desc:"Repetí la sesión solo si estás recuperado. No aumentes el número de aceleraciones por tu cuenta.",type:"speed",steps:[["Calentamiento","Marcha activa y movilidad",90],["Activación","Rodillas arriba suave",60],["Aceleraciones","4 × 10 m progresivas con descanso completo",240],["Coordinación","Desplazamientos laterales controlados",120],["Vuelta a la calma","Caminata tranquila",120]]},
-  {name:"Fuerza general",tag:"Principal",icon:"💪",duration:"20–25 min",desc:"Mantené la misma cantidad de series; buscá mejor control, no más carga. Si estás cansado, descansá.",type:"strength",steps:[["Calentamiento","Marcha activa + movilidad",120],["Sentadillas","2 × 8–10 repeticiones",120],["Flexiones","2 × 6–10 repeticiones cómodas",120],["Remo / dominadas asistidas","2 × 3–5 con control y asistencia segura",120],["Puente de glúteos","2 × 10 repeticiones",90],["Plancha","2 × 15–20 segundos",90],["Vuelta a la calma","Caminata y estiramientos breves",180]]},
-  {name:"Recuperación y revisión",tag:"Suave",icon:"🌤️",duration:"5–10 min opcionales",desc:"Cerrá las dos semanas descansando y revisando cómo te sentiste. No hagas una prueba máxima.",type:"rest",steps:[]}
+  {
+    name: "Educación Física / recuperación",
+    tag: "Suave",
+    icon: "🏫",
+    duration: "Actividad escolar · sin carga extra",
+    desc: "La clase de Educación Física cuenta como actividad. No agregues otra sesión intensa.",
+    type: "rest",
+    steps: []
+  },
+  {
+    name: "Técnica de fútbol",
+    tag: "Técnica",
+    icon: "⚽",
+    duration: "20–25 minutos",
+    desc: "Trabajo suave con pelota: conducción, control orientado y pases. Sin exigirte al máximo.",
+    type: "technical",
+    steps: [
+      { name: "Calentamiento suave", seconds: 180, hint: "Mové articulaciones y trotá suavemente." },
+      { name: "Conducción con pelota", seconds: 180, hint: "Usá ambos pies y mantené el control." },
+      { name: "Cambios de dirección", seconds: 120, hint: "Girá con control, sin frenar bruscamente." },
+      { name: "Pases contra una pared", seconds: 180, hint: "Alterná ambos perfiles." },
+      { name: "Control orientado", seconds: 180, hint: "Recibí y orientá el primer toque." },
+      { name: "Vuelta a la calma", seconds: 180, hint: "Caminá y respir á tranquilamente." }
+    ]
+  },
+  {
+    name: "Recuperación activa",
+    tag: "Recuperación",
+    icon: "🌿",
+    duration: "15–20 minutos",
+    desc: "Movilidad y recuperación. Si estás cansado, descansá.",
+    type: "recovery",
+    steps: [
+      { name: "Caminata suave", seconds: 240, hint: "Mantené un ritmo cómodo." },
+      { name: "Movilidad de tobillos", seconds: 120, hint: "Mové los tobillos sin forzar." },
+      { name: "Movilidad de cadera", seconds: 120, hint: "Movimientos lentos y controlados." },
+      { name: "Movilidad de hombros", seconds: 120, hint: "Hacé círculos suaves." },
+      { name: "Respiración tranquila", seconds: 120, hint: "Respirá con calma." }
+    ]
+  },
+  {
+    name: "Velocidad y coordinación",
+    tag: "Entrenamiento",
+    icon: "⚡",
+    duration: "25–30 minutos",
+    desc: "Aceleraciones cortas y coordinación. Solo si estás descansado, sin dolor y tenés un espacio seguro.",
+    type: "speed",
+    steps: [
+      { name: "Calentamiento", seconds: 300, hint: "Caminata, trote suave y movilidad." },
+      { name: "Coordinación de pies", seconds: 120, hint: "Pasos cortos y controlados." },
+      { name: "Aceleración corta", seconds: 10, hint: "Acelerá progresivamente, sin competir contra el cansancio." },
+      { name: "Descanso", seconds: 80, hint: "Caminá y recuperá el aire." },
+      { name: "Aceleración corta", seconds: 10, hint: "Mantené una técnica cómoda." },
+      { name: "Descanso", seconds: 80, hint: "Recuperación completa." },
+      { name: "Aceleración corta", seconds: 10, hint: "No busques tu velocidad máxima." },
+      { name: "Vuelta a la calma", seconds: 300, hint: "Caminá y soltá las piernas." }
+    ]
+  },
+  {
+    name: "Movilidad y control corporal",
+    tag: "Suave",
+    icon: "🧘",
+    duration: "15–20 minutos",
+    desc: "Sesión tranquila para mejorar movilidad, equilibrio y control.",
+    type: "recovery",
+    steps: [
+      { name: "Movilidad general", seconds: 240, hint: "Mové todo el cuerpo suavemente." },
+      { name: "Equilibrio sobre una pierna", seconds: 60, hint: "Alterná piernas y mantené el control." },
+      { name: "Puente de glúteos", seconds: 60, hint: "Elevá la cadera sin arquear la espalda." },
+      { name: "Bird dog", seconds: 90, hint: "Extendé brazo y pierna contrarios." },
+      { name: "Movilidad de cadera", seconds: 120, hint: "Sin rebotes ni movimientos bruscos." },
+      { name: "Respiración", seconds: 120, hint: "Terminá relajado." }
+    ]
+  },
+  {
+    name: "Fuerza general",
+    tag: "Entrenamiento",
+    icon: "💪",
+    duration: "25–30 minutos",
+    desc: "Fuerza con el peso corporal y elementos livianos. Priorizá la técnica y no llegues al fallo.",
+    type: "strength",
+    steps: [
+      { name: "Calentamiento", seconds: 300, hint: "Movilidad y movimientos suaves." },
+      { name: "Sentadillas controladas", seconds: 30, hint: "Mantené la espalda cómoda y las rodillas alineadas." },
+      { name: "Descanso", seconds: 60, hint: "Recuperá antes de continuar." },
+      { name: "Flexiones adaptadas", seconds: 30, hint: "Usá una variante que puedas controlar." },
+      { name: "Descanso", seconds: 60, hint: "Respirá tranquilamente." },
+      { name: "Remo con banda", seconds: 30, hint: "Tirá suavemente y controlá el regreso." },
+      { name: "Descanso", seconds: 60, hint: "No apures la recuperación." },
+      { name: "Puente de glúteos", seconds: 30, hint: "Movimiento controlado." },
+      { name: "Descanso", seconds: 60, hint: "Tomá agua si lo necesitás." },
+      { name: "Bird dog", seconds: 60, hint: "Mantené estable el tronco." },
+      { name: "Vuelta a la calma", seconds: 240, hint: "Caminá y relajá los músculos." }
+    ]
+  },
+  {
+    name: "Descanso",
+    tag: "Descanso",
+    icon: "😴",
+    duration: "Recuperación",
+    desc: "Día para recuperar energía. Podés caminar suavemente si te apetece.",
+    type: "rest",
+    steps: []
+  },
+  {
+    name: "Técnica y reacción",
+    tag: "Técnica",
+    icon: "⚽",
+    duration: "20–25 minutos",
+    desc: "Practicá control, reacción y cambios de orientación. Mantené una intensidad cómoda.",
+    type: "technical",
+    steps: [
+      { name: "Calentamiento", seconds: 240, hint: "Movilidad y caminata." },
+      { name: "Conducción con ambos pies", seconds: 180, hint: "Controlá la pelota con ambos perfiles." },
+      { name: "Cambios de dirección", seconds: 120, hint: "Girá sin movimientos bruscos." },
+      { name: "Pases y recepción", seconds: 180, hint: "Orientá el primer toque." },
+      { name: "Reacción", seconds: 120, hint: "Respondé a señales visuales o auditivas." },
+      { name: "Vuelta a la calma", seconds: 180, hint: "Caminá suavemente." }
+    ]
+  },
+  {
+    name: "Resistencia suave",
+    tag: "Entrenamiento",
+    icon: "🏃",
+    duration: "20–25 minutos",
+    desc: "Mejorá tu capacidad aeróbica con un ritmo que te permita hablar.",
+    type: "endurance",
+    steps: [
+      { name: "Caminata de calentamiento", seconds: 240, hint: "Empezá muy suave." },
+      { name: "Trote cómodo", seconds: 180, hint: "Ritmo conversacional, sin agotarte." },
+      { name: "Caminata", seconds: 120, hint: "Recuperá el aire." },
+      { name: "Trote cómodo", seconds: 180, hint: "Mantené un ritmo estable." },
+      { name: "Caminata", seconds: 120, hint: "Recuperación." },
+      { name: "Vuelta a la calma", seconds: 240, hint: "Caminá y relajá las piernas." }
+    ]
+  },
+  {
+    name: "Recuperación activa",
+    tag: "Recuperación",
+    icon: "🌿",
+    duration: "15–20 minutos",
+    desc: "Movilidad, caminata suave y recuperación.",
+    type: "recovery",
+    steps: [
+      { name: "Caminata suave", seconds: 240, hint: "Ritmo cómodo." },
+      { name: "Movilidad de tobillos", seconds: 120, hint: "Movimientos suaves." },
+      { name: "Movilidad de cadera", seconds: 120, hint: "Sin forzar." },
+      { name: "Movilidad de espalda", seconds: 120, hint: "Movimientos lentos." },
+      { name: "Respiración", seconds: 120, hint: "Relajate." }
+    ]
+  },
+  {
+    name: "Fuerza y estabilidad",
+    tag: "Entrenamiento",
+    icon: "💪",
+    duration: "25–30 minutos",
+    desc: "Trabajá estabilidad y fuerza general con movimientos controlados.",
+    type: "strength",
+    steps: [
+      { name: "Calentamiento", seconds: 300, hint: "Movilidad general." },
+      { name: "Sentadillas controladas", seconds: 30, hint: "Sin peso o con una carga muy liviana si dominás la técnica." },
+      { name: "Descanso", seconds: 60, hint: "Recuperá." },
+      { name: "Flexiones adaptadas", seconds: 30, hint: "Elegí una variante cómoda." },
+      { name: "Descanso", seconds: 60, hint: "Respirá." },
+      { name: "Remo con banda", seconds: 30, hint: "Controlá el movimiento." },
+      { name: "Descanso", seconds: 60, hint: "Recuperación." },
+      { name: "Plancha adaptada", seconds: 20, hint: "Mantené el cuerpo alineado." },
+      { name: "Descanso", seconds: 60, hint: "No fuerces la postura." },
+      { name: "Puente de glúteos", seconds: 30, hint: "Movimiento suave." },
+      { name: "Vuelta a la calma", seconds: 240, hint: "Caminá suavemente." }
+    ]
+  },
+  {
+    name: "Descanso y evaluación",
+    tag: "Descanso",
+    icon: "⭐",
+    duration: "Día tranquilo",
+    desc: "Recuperá y observá cómo te sentís. No hace falta realizar pruebas máximas.",
+    type: "rest",
+    steps: []
+  },
+  {
+    name: "Técnica de media punta",
+    tag: "Técnica",
+    icon: "🎯",
+    duration: "20–25 minutos",
+    desc: "Trabajá recepción, giro, conducción y pase, habilidades importantes para tu posición.",
+    type: "technical",
+    steps: [
+      { name: "Calentamiento", seconds: 240, hint: "Movilidad y caminata." },
+      { name: "Control orientado", seconds: 180, hint: "Recibí y orientá hacia un espacio." },
+      { name: "Giros con pelota", seconds: 180, hint: "Alterná ambos perfiles." },
+      { name: "Pases", seconds: 180, hint: "Priorizá precisión." },
+      { name: "Conducción", seconds: 180, hint: "Levantá la cabeza mientras conducís." },
+      { name: "Vuelta a la calma", seconds: 180, hint: "Caminá suavemente." }
+    ]
+  },
+  {
+    name: "Velocidad y coordinación",
+    tag: "Entrenamiento",
+    icon: "⚡",
+    duration: "25 minutos",
+    desc: "Aceleraciones progresivas y coordinación, solamente si estás recuperado y sin molestias.",
+    type: "speed",
+    steps: [
+      { name: "Calentamiento", seconds: 300, hint: "Prepará el cuerpo." },
+      { name: "Coordinación", seconds: 120, hint: "Pasos cortos y suaves." },
+      { name: "Aceleración progresiva", seconds: 10, hint: "Aumentá la velocidad gradualmente." },
+      { name: "Descanso", seconds: 90, hint: "Recuperación completa." },
+      { name: "Aceleración progresiva", seconds: 10, hint: "Mantené el control." },
+      { name: "Descanso", seconds: 90, hint: "No continúes si estás fatigado." },
+      { name: "Vuelta a la calma", seconds: 300, hint: "Caminá tranquilamente." }
+    ]
+  },
+  {
+    name: "Cierre del primer bloque",
+    tag: "Recuperación",
+    icon: "🏁",
+    duration: "15–20 minutos",
+    desc: "Cerrá estos 14 días con movilidad y una revisión de cómo te sentís. El objetivo es construir constancia.",
+    type: "recovery",
+    steps: [
+      { name: "Caminata suave", seconds: 240, hint: "Ritmo cómodo." },
+      { name: "Movilidad general", seconds: 240, hint: "Sin forzar ninguna articulación." },
+      { name: "Respiración", seconds: 120, hint: "Relajá el cuerpo." }
+    ]
+  }
 ];
 
-const state = JSON.parse(localStorage.getItem("fit14state") || '{"done":[],"history":[],"feel":{},"start":null}');
-
-let selectedDay = 0;
-let currentSteps = [];
-let stepIndex = 0;
-let seconds = 0;
-let interval = null;
-let paused = false;
-let deferredPrompt = null;
-
-const save = () => localStorage.setItem("fit14state", JSON.stringify(state));
-
-const todayIndex = () => {
-  if (!state.start) return 0;
-  return Math.max(0, Math.min(13, Math.floor((Date.now() - state.start) / 86400000)));
+const defaultState = {
+  done: [],
+  history: [],
+  feel: "",
+  start: "",
+  meals: [],
+  pains: [],
+  football: []
 };
 
-function setTab(id) {
-  document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.tab === id));
-  document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === id));
+let state = loadState();
+
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("fit14state") || "{}");
+    return { ...defaultState, ...saved };
+  } catch {
+    return { ...defaultState };
+  }
 }
 
-document.querySelectorAll(".tab").forEach(b => {
-  b.addEventListener("click", () => setTab(b.dataset.tab));
+function saveState() {
+  localStorage.setItem("fit14state", JSON.stringify(state));
+}
+
+function todayIndex() {
+  return Math.min(state.done.length, plan.length - 1);
+}
+
+function getCurrentDay() {
+  return Math.min(todayIndex(), 13);
+}
+
+function getTodayDate() {
+  return new Date().toLocaleDateString("es-AR");
+}
+
+function getTodayPain() {
+  return state.pains.find(item => item.date === getTodayDate());
+}
+
+function getTodayFootball() {
+  return state.football.filter(item => item.date === getTodayDate());
+}
+
+function hasPainWarning() {
+  const pain = getTodayPain();
+  return pain && pain.intensity >= 2;
+}
+
+function hasIntenseFootball() {
+  return getTodayFootball().some(item => item.effort >= 4 || item.minutes >= 60);
+}
+
+function showTab(tabName) {
+  document.querySelectorAll(".tab").forEach(button => {
+    button.classList.toggle("active", button.dataset.tab === tabName);
+  });
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === tabName);
+  });
+
+  if (tabName === "stats") renderStats();
+  if (tabName === "calendar") renderCalendar();
+  if (tabName === "food") renderMeals();
+  if (tabName === "feeling") renderPains();
+}
+
+document.querySelectorAll(".tab").forEach(button => {
+  button.addEventListener("click", () => showTab(button.dataset.tab));
 });
 
-function renderDay(i) {
-  selectedDay = i;
-  const d = plan[i];
+function renderToday() {
+  const index = getCurrentDay();
+  const day = plan[index];
 
-  $("#dayPill").textContent = `Día ${i + 1} de 14`;
-  $("#todayTitle").textContent = `Día ${i + 1} · ${d.name}`;
-  $("#todayTag").textContent = d.tag;
-  $("#todayIcon").textContent = d.icon;
-  $("#todayWorkout").textContent = d.name;
-  $("#todayDesc").textContent = d.desc;
-  $("#todayDuration").textContent = d.duration;
+  $("#dayPill").textContent = `DÍA ${index + 1} / 14`;
+  $("#todayIcon").textContent = day.icon;
+  $("#todayTitle").textContent = day.name;
+  $("#todayTag").textContent = day.tag.toUpperCase();
+  $("#todayDesc").textContent = day.desc;
+  $("#todayDuration").textContent = day.duration;
 
-  const steps = d.steps;
-  let html = "";
+  const progress = Math.round((state.done.length / 14) * 100);
+  $("#progressLabel").textContent = `${progress}%`;
+  $("#overallProgress").style.width = `${progress}%`;
 
-  if (d.type === "rest") {
-    html = '<p class="muted">Hoy no hay una sesión exigente programada. El descanso también forma parte del entrenamiento.</p>';
+  $("#todayWorkout").innerHTML = "";
+
+  if (day.steps.length) {
+    const heading = document.createElement("h3");
+    heading.textContent = "Actividades de hoy";
+    $("#todayWorkout").appendChild(heading);
+
+    day.steps.forEach(step => {
+      const item = document.createElement("div");
+      item.className = "exercise-item";
+      item.textContent = `${step.name} · ${formatTime(step.seconds)}`;
+      $("#todayWorkout").appendChild(item);
+    });
   } else {
-    html = '<div class="warmup-title">Antes: calentamiento dinámico</div><ul class="exercise-list"><li>Marcha activa — 1 minuto</li><li>Círculos de brazos y movilidad de cadera/tobillos — 1 minuto</li><li>Movimientos progresivos específicos de la sesión — 2 minutos</li></ul><div class="warmup-title">Sesión</div><ul class="exercise-list">' +
-      steps.map(s => `<li><b>${s[0]}:</b> ${s[1]}</li>`).join("") +
-      '</ul><div class="warmup-title">Después: estiramientos suaves</div><ul class="exercise-list"><li>Cuádriceps — 20 s por lado</li><li>Parte posterior de piernas — 20 s por lado</li><li>Gemelos — 20 s por lado</li><li>Hombros — 20 s por lado</li></ul>';
+    const message = document.createElement("p");
+    message.textContent = "Hoy no hay una sesión guiada obligatoria. Priorizá la recuperación.";
+    $("#todayWorkout").appendChild(message);
   }
 
-  $("#sessionContent").innerHTML = html;
-  $("#startSession").disabled = steps.length === 0;
-  $("#startSession").textContent = steps.length ? "Comenzar sesión guiada" : "Hoy no hay sesión exigente";
-  $("#completeDay").textContent = state.done.includes(i) ? "Día realizado ✓" : "Marcar día como realizado";
+  $("#startSession").disabled = !day.steps.length || hasPainWarning() || hasIntenseFootball();
+  $("#startSession").textContent = hasPainWarning()
+    ? "Priorizar recuperación"
+    : hasIntenseFootball()
+      ? "Hoy ya hiciste actividad intensa"
+      : day.steps.length ? "Comenzar entrenamiento" : "Día sin sesión guiada";
 
-  const feel = state.feel[i];
-  document.querySelectorAll(".feeling").forEach(b => b.classList.toggle("selected", b.dataset.feel === feel));
+  $("#completeDay").textContent = state.done.includes(index)
+    ? "Día completado"
+    : "Marcar día como completado";
 
-  updateAdvice();
-  renderCalendar();
-  renderStats();
+  $("#completeDay").disabled = state.done.includes(index);
+
+  renderDailyAdvice();
+  renderFoodSuggestions();
 }
 
-function updateAdvice() {
-  const f = state.feel[selectedDay];
-  const d = plan[selectedDay];
-  let msg = "Elegí cómo te sentís para ver tu recomendación.";
+function renderDailyAdvice() {
+  const pain = getTodayPain();
 
-  if (f === "good") msg = d.type === "rest"
-    ? "Aunque te sientas bien, hoy está previsto recuperar. Si querés moverte, elegí una caminata suave."
-    : "Podés hacer la sesión prevista a intensidad cómoda, siempre que no hayas jugado fuerte recientemente.";
+  if (pain) {
+    $("#dailyAdvice").textContent =
+      `Registraste una molestia en ${pain.zone}. Evitá ejercicios que la provoquen. Si persiste, empeora o es intensa, hablalo con un adulto y consulten a un profesional.`;
+    return;
+  }
 
-  if (f === "tired") msg = "Hoy reducí la sesión o descansá. No intentes compensar mañana.";
-  if (f === "sore") msg = "No hagas la sesión si hay dolor. Avisale a un adulto y consultá a un profesional si el dolor persiste o es importante.";
+  if (hasIntenseFootball()) {
+    $("#dailyAdvice").textContent =
+      "Registraste fútbol intenso. Hoy conviene recuperar y no sumar otra sesión exigente.";
+    return;
+  }
 
-  $("#dailyAdvice").textContent = msg;
+  if (state.feel === "tired") {
+    $("#dailyAdvice").textContent =
+      "Si estás cansado, reducí la actividad o descansá. La recuperación también forma parte del progreso.";
+  } else if (state.feel === "sore") {
+    $("#dailyAdvice").textContent =
+      "Si sentís molestias, no fuerces la zona. Si hay dolor, evitá la sesión y contáselo a un adulto.";
+  } else if (state.feel === "good") {
+    $("#dailyAdvice").textContent =
+      "¡Bien! Seguí el plan con una intensidad cómoda, cuidando la técnica y escuchando a tu cuerpo.";
+  } else {
+    $("#dailyAdvice").textContent =
+      "Elegí cómo te sentís para recibir una recomendación.";
+  }
 }
 
-document.querySelectorAll(".feeling").forEach(b => {
-  b.addEventListener("click", () => {
-    state.feel[selectedDay] = b.dataset.feel;
-    save();
-    renderDay(selectedDay);
+document.querySelectorAll(".feeling").forEach(button => {
+  button.addEventListener("click", () => {
+    state.feel = button.dataset.feel;
+    saveState();
+
+    document.querySelectorAll(".feeling").forEach(item => {
+      item.classList.toggle("selected", item === button);
+    });
+
+    renderDailyAdvice();
   });
 });
+
+$("#completeDay").addEventListener("click", () => {
+  const index = getCurrentDay();
+
+  if (state.done.includes(index)) return;
+
+  if (!confirm("¿Querés marcar este día como completado?")) return;
+
+  state.done.push(index);
+  state.history.push({
+    date: getTodayDate(),
+    activity: plan[index].name,
+    type: "Plan"
+  });
+
+  saveState();
+  renderAll();
+
+  alert("¡Día registrado! Seguí priorizando la constancia y la recuperación.");
+});
+
+$("#startSession").addEventListener("click", () => {
+  if (hasPainWarning()) {
+    alert("Registraste una molestia. No comiences una sesión exigente. Si hay dolor, hablalo con un adulto.");
+    return;
+  }
+
+  if (hasIntenseFootball()) {
+    alert("Ya registraste fútbol intenso hoy. Priorizá la recuperación.");
+    return;
+  }
+
+  const steps = plan[getCurrentDay()].steps;
+  if (!steps.length) return;
+
+  startTimer(steps);
+});
+
+function formatTime(seconds) {
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+}
+
+let timerSteps = [];
+let timerIndex = 0;
+let timerRemaining = 0;
+let timerInterval = null;
+let timerPaused = false;
+
+function startTimer(steps) {
+  timerSteps = steps;
+  timerIndex = 0;
+  timerPaused = false;
+
+  $("#timerModal").hidden = false;
+  $("#pauseTimer").textContent = "Pausar";
+  loadTimerStep();
+}
+
+function loadTimerStep() {
+  if (timerIndex >= timerSteps.length) {
+    finishTimer();
+    return;
+  }
+
+  const step = timerSteps[timerIndex];
+  timerRemaining = step.seconds;
+
+  $("#timerTitle").textContent = step.name;
+  $("#timerStep").textContent = `Actividad ${timerIndex + 1} de ${timerSteps.length}`;
+  $("#timerHint").textContent = step.hint;
+  $("#timerDisplay").textContent = formatTime(timerRemaining);
+  $("#timerProgress").style.width = "0%";
+
+  clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+  if (timerPaused) return;
+
+  timerRemaining--;
+
+  const total = timerSteps[timerIndex].seconds;
+  const elapsed = total - timerRemaining;
+  const progress = Math.min(100, Math.max(0, elapsed / total * 100));
+
+  $("#timerDisplay").textContent = formatTime(Math.max(0, timerRemaining));
+  $("#timerProgress").style.width = `${progress}%`;
+
+  if (timerRemaining <= 0) {
+    clearInterval(timerInterval);
+    timerIndex++;
+    loadTimerStep();
+  }
+}
+
+$("#pauseTimer").addEventListener("click", () => {
+  timerPaused = !timerPaused;
+  $("#pauseTimer").textContent = timerPaused ? "Continuar" : "Pausar";
+});
+
+$("#nextTimer").addEventListener("click", () => {
+  timerIndex++;
+  loadTimerStep();
+});
+
+$("#closeTimer").addEventListener("click", closeTimer);
+$("#timerModal").addEventListener("click", event => {
+  if (event.target.id === "timerModal") closeTimer();
+});
+
+function closeTimer() {
+  clearInterval(timerInterval);
+  $("#timerModal").hidden = true;
+}
+
+function finishTimer() {
+  clearInterval(timerInterval);
+  $("#timerTitle").textContent = "¡Sesión terminada!";
+  $("#timerStep").textContent = "Completaste la sesión guiada.";
+  $("#timerDisplay").textContent = "✓";
+  $("#timerHint").textContent = "Hidratate y recuperá tranquilamente.";
+  $("#timerProgress").style.width = "100%";
+  $("#nextTimer").textContent = "Cerrar";
+  $("#nextTimer").onclick = () => {
+    $("#nextTimer").onclick = null;
+    $("#nextTimer").textContent = "Siguiente";
+    closeTimer();
+  };
+}
 
 function renderCalendar() {
   const grid = $("#calendarGrid");
   grid.innerHTML = "";
 
-  plan.forEach((d, i) => {
-    const b = document.createElement("button");
-    b.className = "day-card" + (i === selectedDay ? " current" : "") + (state.done.includes(i) ? " done" : "");
-    b.innerHTML = `<strong>DÍA ${i + 1}${state.done.includes(i) ? " · ✓" : ""}</strong><span>${d.icon} ${d.name}</span><small>${d.duration}</small>`;
-    b.onclick = () => {
-      renderDay(i);
-      setTab("today");
-    };
-    grid.appendChild(b);
+  const weekdays = ["S", "D", "L", "M", "X", "J", "V"];
+
+  weekdays.forEach(day => {
+    const cell = document.createElement("div");
+    cell.className = "calendar-weekday";
+    cell.textContent = day;
+    grid.appendChild(cell);
   });
 
-  const done = state.done.length;
-  $("#overallProgress").style.width = (done / 14 * 100) + "%";
-  $("#progressLabel").textContent = `${done} de 14 días completados`;
-}
+  // El programa comienza visualmente en sábado.
+  const offset = 6;
 
-$("#completeDay").addEventListener("click", () => {
-  if (!state.done.includes(selectedDay)) state.done.push(selectedDay);
-  save();
-  renderDay(selectedDay);
-});
-
-function beginSession() {
-  currentSteps = plan[selectedDay].steps.map(x => ({name:x[0],hint:x[1],duration:x[2]}));
-  if (!currentSteps.length) return;
-
-  stepIndex = 0;
-  paused = false;
-  $("#timerModal").classList.add("open");
-  $("#timerModal").setAttribute("aria-hidden", "false");
-  showStep();
-}
-
-function showStep() {
-  clearInterval(interval);
-
-  if (stepIndex >= currentSteps.length) {
-    $("#timerStep").textContent = "¡Sesión terminada!";
-    $("#timerDisplay").textContent = "✓";
-    $("#timerHint").textContent = "Hacé la vuelta a la calma si todavía no la completaste.";
-    $("#nextTimer").textContent = "Finalizar";
-    $("#pauseTimer").disabled = true;
-    return;
+  for (let i = 0; i < offset; i++) {
+    const blank = document.createElement("div");
+    blank.className = "calendar-empty";
+    grid.appendChild(blank);
   }
 
-  const s = currentSteps[stepIndex];
-  seconds = s.duration;
+  plan.forEach((day, index) => {
+    const cell = document.createElement("button");
+    cell.className = "calendar-day";
+    cell.type = "button";
 
-  $("#timerTitle").textContent = plan[selectedDay].name;
-  $("#timerStep").textContent = `${stepIndex + 1} de ${currentSteps.length} · ${s.name}`;
-  $("#timerDisplay").textContent = fmt(seconds);
-  $("#timerHint").textContent = s.hint;
-  $("#nextTimer").textContent = "Siguiente";
-  $("#pauseTimer").disabled = false;
+    if (state.done.includes(index)) cell.classList.add("completed");
+    if (index === getCurrentDay()) cell.classList.add("current");
 
-  tick();
-}
+    cell.innerHTML = `<strong>${index + 1}</strong><span>${day.icon}</span>`;
+    cell.title = day.name;
 
-function fmt(n) {
-  return String(Math.floor(n / 60)).padStart(2, "0") + ":" + String(n % 60).padStart(2, "0");
-}
+    cell.addEventListener("click", () => {
+      alert(`Día ${index + 1}: ${day.name}\n${day.desc}`);
+    });
 
-function tick() {
-  clearInterval(interval);
-
-  interval = setInterval(() => {
-    if (paused) return;
-
-    if (seconds > 0) {
-      seconds--;
-      $("#timerDisplay").textContent = fmt(seconds);
-    } else {
-      clearInterval(interval);
-      $("#timerHint").textContent = "Tiempo cumplido. Pasá al siguiente paso cuando estés listo.";
-    }
-  }, 1000);
-}
-
-$("#startSession").addEventListener("click", beginSession);
-
-$("#nextTimer").addEventListener("click", () => {
-  if (stepIndex >= currentSteps.length) {
-    finishSession();
-    return;
-  }
-
-  stepIndex++;
-  showStep();
-});
-
-$("#pauseTimer").addEventListener("click", () => {
-  paused = !paused;
-  $("#pauseTimer").textContent = paused ? "Continuar" : "Pausar";
-});
-
-function finishSession() {
-  clearInterval(interval);
-  $("#timerModal").classList.remove("open");
-  $("#timerModal").setAttribute("aria-hidden", "true");
-
-  state.history.unshift({
-    type:"Plan",
-    name:plan[selectedDay].name,
-    minutes:plan[selectedDay].steps.reduce((a, s) => a + s[2], 0) / 60,
-    date:new Date().toLocaleString("es-AR")
+    grid.appendChild(cell);
   });
-
-  if (!state.done.includes(selectedDay)) state.done.push(selectedDay);
-
-  save();
-  renderDay(selectedDay);
 }
-
-$("#closeTimer").addEventListener("click", () => {
-  clearInterval(interval);
-  $("#timerModal").classList.remove("open");
-  $("#timerModal").setAttribute("aria-hidden", "true");
-});
-
-$("#logFootball").addEventListener("click", () => {
-  const type = document.querySelector('input[name="footballType"]:checked').value;
-  const mins = Math.max(5, Math.min(180, Number($("#footballMinutes").value) || 20));
-  const effort = $("#footballEffort").value;
-  const name = type === "game" ? "Partido / fútbol intenso" : type === "light" ? "Fútbol suave" : "Técnica individual";
-
-  state.history.unshift({
-    type:"Fútbol",
-    name,
-    minutes:mins,
-    effort,
-    date:new Date().toLocaleString("es-AR")
-  });
-
-  if (effort === "hard" || type === "game") {
-    state.feel[selectedDay] = "tired";
-  }
-
-  save();
-  renderDay(selectedDay);
-  renderStats();
-
-  alert("Fútbol registrado. Si fue intenso, evitá sumar velocidad o fuerza hoy y priorizá la recuperación.");
-});
 
 function renderStats() {
-  const h = state.history;
-
   $("#completedStat").textContent = state.done.length;
-  $("#footballStat").textContent = h.filter(x => x.type === "Fútbol").length;
-  $("#minutesStat").textContent = Math.round(h.reduce((a, x) => a + (x.minutes || 0), 0));
-  $("#streakStat").textContent = state.done.length ? Math.min(state.done.length, 14) : 0;
+  $("#footballStat").textContent = state.football.length;
 
-  $("#historyList").innerHTML = h.length
-    ? h.slice(0, 8).map(x => `<div class="history-item"><b>${x.name}</b> · ${Math.round(x.minutes)} min<small>${x.type} · ${x.date}</small></div>`).join("")
-    : "Todavía no hay sesiones registradas.";
+  const footballMinutes = state.football.reduce((sum, item) => sum + item.minutes, 0);
+  $("#minutesStat").textContent = footballMinutes;
+
+  let streak = 0;
+  for (let i = state.done.length - 1; i >= 0; i--) {
+    if (state.done.includes(i)) streak++;
+    else break;
+  }
+  $("#streakStat").textContent = streak;
+
+  const history = $("#historyList");
+  history.innerHTML = "";
+
+  const entries = [
+    ...state.history.map(item => ({ ...item })),
+    ...state.football.map(item => ({
+      date: item.date,
+      activity: `${item.type} · ${item.minutes} min`,
+      type: "Fútbol"
+    }))
+  ].reverse();
+
+  if (!entries.length) {
+    history.textContent = "Todavía no hay actividad registrada.";
+    return;
+  }
+
+  entries.slice(0, 30).forEach(item => {
+    const row = document.createElement("div");
+    row.className = "history-item";
+
+    const title = document.createElement("strong");
+    title.textContent = item.activity;
+
+    const date = document.createElement("span");
+    date.textContent = `${item.type} · ${item.date}`;
+
+    row.append(title, date);
+    history.appendChild(row);
+  });
+}
+
+$("#footballForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const type = document.querySelector('input[name="footballType"]:checked')?.value || "Partido";
+  const minutes = Number($("#footballMinutes").value);
+  const effort = Number($("#footballEffort").value);
+
+  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 300) {
+    alert("Ingresá una duración válida entre 1 y 300 minutos.");
+    return;
+  }
+
+  state.football.push({
+    type,
+    minutes,
+    effort,
+    date: getTodayDate()
+  });
+
+  saveState();
+
+  $("#footballMinutes").value = "";
+  $("#footballAdvice").innerHTML = `
+    <h3>Actividad registrada</h3>
+    <p>Registraste ${minutes} minutos de ${type.toLowerCase()}. ${effort >= 4 || minutes >= 60
+      ? "Fue una actividad exigente: priorizá la recuperación y evitá sumar otra sesión intensa."
+      : "Ajustá el resto del día según cómo te sientas."}</p>
+  `;
+
+  renderAll();
+  alert("¡Actividad de fútbol registrada!");
+});
+
+const foodIdeas = {
+  Desayuno: "Leche o yogur, avena o tostadas, fruta y algún alimento con proteínas.",
+  Almuerzo: "Combiná verduras, arroz o pasta, y legumbres, huevo o queso.",
+  Merienda: "Yogur o leche con fruta, tostadas o un sándwich.",
+  Cena: "Una comida completa con verduras, alguna fuente de proteínas y cereales o tubérculos.",
+  Colación: "Fruta, yogur, frutos secos o un sándwich pequeño."
+};
+
+function renderFoodSuggestions() {
+  const container = $("#foodSuggestions");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  Object.entries(foodIdeas).forEach(([meal, idea]) => {
+    const item = document.createElement("div");
+    item.className = "food-suggestion";
+
+    const title = document.createElement("strong");
+    title.textContent = meal;
+
+    const text = document.createElement("p");
+    text.textContent = idea;
+
+    item.append(title, text);
+    container.appendChild(item);
+  });
+}
+
+$("#mealForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const type = $("#mealType").value;
+  const description = $("#mealDescription").value.trim();
+
+  if (!description) return;
+
+  state.meals.push({
+    type,
+    description,
+    date: getTodayDate(),
+    timestamp: Date.now()
+  });
+
+  saveState();
+
+  $("#mealDescription").value = "";
+  $("#mealFeedback").textContent = getMealFeedback(description);
+
+  renderMeals();
+});
+
+function getMealFeedback(description) {
+  const text = description.toLowerCase();
+  const suggestions = [];
+
+  if (/fruta|manzana|banana|naranja|pera|frutilla/.test(text)) {
+    suggestions.push("Incluiste fruta, que aporta vitaminas y fibra.");
+  }
+
+  if (/huevo|leche|yogur|queso|lenteja|garbanzo|poroto|soja/.test(text)) {
+    suggestions.push("Incluiste una fuente de proteínas.");
+  }
+
+  if (/arroz|pasta|fideo|pan|avena|papa|batata/.test(text)) {
+    suggestions.push("Incluiste alimentos que aportan energía.");
+  }
+
+  if (!suggestions.length) {
+    suggestions.push("Gracias por registrar tu comida. Podés complementar tus comidas con frutas, verduras y distintas fuentes de proteínas.");
+  }
+
+  return suggestions.join(" ") + " Recordá mantener comidas variadas y suficientes para tu crecimiento y actividad.";
+}
+
+function renderMeals() {
+  const container = $("#mealHistory");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!state.meals.length) {
+    container.textContent = "Todavía no hay comidas registradas.";
+    return;
+  }
+
+  [...state.meals].reverse().slice(0, 30).forEach(meal => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+
+    const title = document.createElement("strong");
+    title.textContent = meal.type;
+
+    const description = document.createElement("p");
+    description.textContent = meal.description;
+
+    const date = document.createElement("span");
+    date.textContent = meal.date;
+
+    item.append(title, description, date);
+    container.appendChild(item);
+  });
+}
+
+$("#painIntensity").addEventListener("input", () => {
+  $("#painIntensityValue").textContent = $("#painIntensity").value;
+});
+
+$("#painForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const pain = {
+    zone: $("#painZone").value,
+    type: $("#painType").value,
+    intensity: Number($("#painIntensity").value),
+    when: $("#painWhen").value,
+    notes: $("#painNotes").value.trim(),
+    date: getTodayDate()
+  };
+
+  if (!pain.zone || !pain.type || !pain.when) {
+    alert("Completá los campos obligatorios.");
+    return;
+  }
+
+  state.pains.push(pain);
+  saveState();
+
+  $("#painNotes").value = "";
+  $("#painAdvice").textContent = pain.intensity >= 3
+    ? "La molestia que registraste merece atención. No realices ejercicios que la provoquen. Contáselo a un adulto y consulten a un profesional, especialmente si persiste o empeora."
+    : "Evitá los movimientos que generen molestias. Observá cómo evoluciona y contáselo a un adulto si continúa o empeora.";
+
+  renderPains();
+  renderToday();
+});
+
+function renderPains() {
+  const container = $("#painHistory");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!state.pains.length) {
+    container.textContent = "Todavía no hay registros.";
+    return;
+  }
+
+  [...state.pains].reverse().slice(0, 30).forEach(pain => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+
+    const title = document.createElement("strong");
+    title.textContent = `${pain.zone} · ${pain.type}`;
+
+    const description = document.createElement("p");
+    description.textContent = `Intensidad: ${pain.intensity}/5 · ${pain.when}`;
+
+    const date = document.createElement("span");
+    date.textContent = `${pain.date}${pain.notes ? " · " + pain.notes : ""}`;
+
+    item.append(title, description, date);
+    container.appendChild(item);
+  });
 }
 
 $("#resetData").addEventListener("click", () => {
-  if (confirm("¿Seguro que querés borrar el progreso guardado en este dispositivo?")) {
-    localStorage.removeItem("fit14state");
-    location.reload();
-  }
+  const accepted = confirm("¿Seguro que querés borrar todo tu progreso, comidas y registros de molestias? Esta acción no se puede deshacer.");
+
+  if (!accepted) return;
+
+  localStorage.removeItem("fit14state");
+  state = { ...defaultState, done: [], history: [], meals: [], pains: [], football: [] };
+
+  saveState();
+  renderAll();
+  showTab("today");
 });
 
-if (!state.start) {
-  state.start = Date.now();
-  save();
+function renderAll() {
+  renderToday();
+  renderCalendar();
+  renderStats();
+  renderMeals();
+  renderPains();
 }
 
-selectedDay = todayIndex();
-renderDay(selectedDay);
-renderStats();
+let installPrompt = null;
 
-window.addEventListener("beforeinstallprompt", e => {
-  e.preventDefault();
-  deferredPrompt = e;
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  installPrompt = event;
   $("#installBtn").hidden = false;
 });
 
 $("#installBtn").addEventListener("click", async () => {
-  if (!deferredPrompt) return;
+  if (!installPrompt) return;
 
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
+  installPrompt.prompt();
+  await installPrompt.userChoice;
+  installPrompt = null;
   $("#installBtn").hidden = true;
 });
 
-if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-  navigator.serviceWorker.register("./sw.js").catch(() => {});
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(error => {
+      console.error("No se pudo registrar el service worker:", error);
+    });
+  });
 }
+
+renderAll();
