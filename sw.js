@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "fit14-summer-v5";
+const CACHE_NAME = "fit14-summer-v6";
 
 const ASSETS = [
   "./",
@@ -7,7 +7,7 @@ const ASSETS = [
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
-  "./icon.svg"
+  "./icon-nuevo.png"
 ];
 
 self.addEventListener("install", event => {
