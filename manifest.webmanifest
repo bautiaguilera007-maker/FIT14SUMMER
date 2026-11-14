@@ -1,24 +1,19 @@
+
 {
   "name": "FIT14 SUMMER",
   "short_name": "FIT14",
-  "description": "Entrenador personal de verano de 14 días",
+  "description": "Tu programa de entrenamiento, fútbol, alimentación y progreso.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b1220",
-  "theme_color": "#101827",
   "orientation": "portrait",
+  "background_color": "#071525",
+  "theme_color": "#071525",
   "icons": [
     {
-      "src": "icono-192.png.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icono-512.png.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any"
     }
   ]
