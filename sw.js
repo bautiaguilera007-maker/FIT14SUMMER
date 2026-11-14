@@ -1,5 +1,5 @@
 
-const CACHE = "fit14-summer-v2";
+const CACHE_NAME = "fit14-summer-v5";
 
 const ASSETS = [
   "./",
@@ -7,15 +7,12 @@ const ASSETS = [
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
-  "./icon.svg",
-  "./icon.png",
-  "./icon-192.png.png",
-  "./icon-512.png.png"
+  "./icon.svg"
 ];
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
   );
   self.skipWaiting();
 });
@@ -24,7 +21,9 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.filter(key => key !== CACHE).map(key => caches.delete(key))
+        keys
+          .filter(key => key.startsWith("fit14-summer-") && key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       )
     )
   );
@@ -35,9 +34,16 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
-    caches.match(event.request).then(cached =>
-      cached || fetch(event.request)
-    )
+    fetch(event.request)
+      .then(response => {
+        if (response && response.status === 200 && response.type === "basic") {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, copy);
+          });
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
-    
